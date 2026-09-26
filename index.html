@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BrainBox — Train Your Mind</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<!-- ============ LOGIN SCREEN ============ -->
+<section class="login-screen" id="loginScreen">
+
+  <div class="login-card">
+
+    <div class="login-logo">
+      🧠
+    </div>
+
+    <h1>Welcome back</h1>
+
+    <p class="login-subtitle">
+      Sign in to continue your BrainBox journey.
+    </p>
+
+    <form id="loginForm">
+
+      <div class="login-field">
+        <label for="loginEmail">Email Address</label>
+        <input
+          type="email"
+          id="loginEmail"
+          placeholder="you@example.com"
+          autocomplete="email"
+          required
+        />
+      </div>
+
+      <div class="login-field">
+        <label for="loginPassword">Password</label>
+
+        <div class="password-wrap">
+          <input
+            type="password"
+            id="loginPassword"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          />
+
+          <button
+            type="button"
+            id="togglePassword"
+            class="password-toggle"
+            aria-label="Show password"
+          >
+            <span class="eye-icon"></span>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="login-button">
+        Login to BrainBox →
+      </button>
+
+      <p class="login-note">
+        Demo login · No OTP or external authentication required
+      </p>
+
+    </form>
+
+  </div>
+
+</section>
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <div class="brand">
+       <svg class="brand-logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bbLogo" x1="7" y1="5" x2="41" y2="43" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A78BFA"/>
+      <stop offset="0.5" stop-color="#7C3AED"/>
+      <stop offset="1" stop-color="#3B82F6"/>
+    </linearGradient>
+
+    <filter id="bbGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect x="4" y="4" width="40" height="40" rx="13"
+        fill="url(#bbLogo)"
+        filter="url(#bbGlow)"/>
+
+  <path d="M17 14V34"
+        stroke="white"
+        stroke-width="3"
+        stroke-linecap="round"/>
+
+  <path d="M17 15C22 15 27 17 27 21C27 24 24 25 21 25H17"
+        stroke="white"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <path d="M17 25H28C31 25 33 27 33 30C33 33 30 35 26 35H17"
+        stroke="white"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <circle cx="34" cy="13" r="2" fill="#67E8F9"/>
+  <circle cx="11" cy="37" r="2" fill="#C4B5FD"/>
+       </svg>
+        <span class="brand-name">BrainBox</span>
+      </div>
+      <p class="brand-tagline">Train your mind. Challenge yourself.</p>
+    </div>
+
+    <nav class="nav" id="nav">
+      <button class="nav-item active" data-page="dashboard"><span class="nav-icon">🏠</span> Home</button>
+      <button class="nav-item" data-page="memory"><span class="nav-icon">🧠</span> Memory</button>
+      <button class="nav-item" data-page="number"><span class="nav-icon">🔢</span> Number</button>
+      <button class="nav-item" data-page="reaction"><span class="nav-icon">⚡</span> Reaction</button>
+      <button class="nav-item" data-page="logic"><span class="nav-icon">🧩</span> Logic</button>
+      <button class="nav-item" data-page="progress"><span class="nav-icon">📊</span> Progress</button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="motivation-card">
+        <strong>Small steps</strong>
+        <span>build big brains!</span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ===================== MAIN ===================== -->
+  <div class="main">
+    <header class="topbar">
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="brain-search">
+  <span class="search-icon">⌕</span>
+
+  <input
+    type="text"
+    placeholder="Search challenges..."
+    aria-label="Search BrainBox challenges"
+  />
+
+  <span class="search-shortcut">⌘ K</span>
+</div>
+
+<div class="topbar-right">
+
+  <button
+    class="theme-toggle"
+    id="themeToggle"
+    type="button"
+    aria-label="Toggle theme"
+  >
+    🌙
+  </button>
+
+<button
+  class="player-card"
+  id="playerMenuBtn"
+  type="button"
+  aria-label="Open player profile"
+>
+  <span class="player-avatar">🧠</span>
+
+  <span class="player-info">
+    <strong>Player</strong>
+
+    <span class="player-level-row">
+      <small>LEVEL 01</small>
+      <small class="player-xp">0 XP</small>
+    </span>
+
+    <span class="player-xp-bar">
+      <span class="player-xp-fill"></span>
+    </span>
+  </span>
+
+  <span class="player-arrow">⌄</span>
+</button>
+
+</div>
+    </header>
+
+    <main class="content" id="content">
+
+      <!-- ============ DASHBOARD ============ -->
+      <section class="page active" id="page-dashboard">
+        <div class="hero glass">
+          <div class="hero-text">
+            <h1>Welcome to BrainBox</h1>
+            <p>Train your memory, boost your focus, think faster and solve smarter with fun and challenging games.</p>
+            <button class="btn-primary" id="startPlayingBtn">Start Playing →</button>
+          </div>
+          <svg class="hero-art premium-brain" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <radialGradient id="brainAura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.35"/>
+      <stop offset="55%" stop-color="#3B82F6" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="brainMain" x1="55" y1="45" x2="190" y2="205">
+      <stop offset="0%" stop-color="#C4B5FD"/>
+      <stop offset="45%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+
+    <linearGradient id="brainEdge" x1="60" y1="55" x2="180" y2="190">
+      <stop offset="0%" stop-color="#A78BFA"/>
+      <stop offset="100%" stop-color="#60A5FA"/>
+    </linearGradient>
+
+    <filter id="brainGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="smallGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+
+  <!-- Outer aura -->
+  <circle cx="120" cy="120" r="104" fill="url(#brainAura)"/>
+
+  <!-- Orbit rings -->
+  <ellipse
+    cx="120"
+    cy="120"
+    rx="91"
+    ry="101"
+    stroke="#8B5CF6"
+    stroke-opacity="0.22"
+    stroke-width="1"
+    stroke-dasharray="4 8"
+  />
+
+  <ellipse
+    cx="120"
+    cy="120"
+    rx="101"
+    ry="72"
+    transform="rotate(-28 120 120)"
+    stroke="#60A5FA"
+    stroke-opacity="0.16"
+    stroke-width="1"
+  />
+
+  <!-- Main brain silhouette -->
+  <path
+    d="M119 48
+       C105 36 84 38 74 51
+       C60 48 47 59 48 74
+       C36 83 38 103 48 111
+       C41 126 48 143 61 148
+       C58 164 69 178 84 179
+       C91 193 109 197 120 187
+       C131 197 149 193 156 179
+       C171 178 182 164 179 148
+       C192 143 199 126 192 111
+       C202 103 204 83 192 74
+       C193 59 180 48 166 51
+       C156 38 135 36 121 48
+       Z"
+    fill="url(#brainMain)"
+    filter="url(#brainGlow)"
+  />
+
+  <!-- Brain center division -->
+  <path
+    d="M120 50
+       C114 65 116 77 120 88
+       C115 103 115 117 120 130
+       C115 145 116 163 120 187"
+    stroke="#EEF2FF"
+    stroke-opacity="0.55"
+    stroke-width="2"
+    stroke-linecap="round"
+  />
+
+  <!-- Left neural pathways -->
+  <path
+    d="M92 57
+       C79 62 82 73 91 78
+       C76 82 69 94 78 103
+       C66 108 67 121 79 126
+       C68 136 74 149 88 150
+       C82 160 90 170 103 168"
+    stroke="#F5F3FF"
+    stroke-opacity="0.62"
+    stroke-width="3"
+    stroke-linecap="round"
+  />
+
+  <!-- Right neural pathways -->
+  <path
+    d="M148 57
+       C161 62 158 73 149 78
+       C164 82 171 94 162 103
+       C174 108 173 121 161 126
+       C172 136 166 149 152 150
+       C158 160 150 170 137 168"
+    stroke="#DBEAFE"
+    stroke-opacity="0.62"
+    stroke-width="3"
+    stroke-linecap="round"
+  />
+
+  <!-- Neural nodes -->
+  <circle cx="91" cy="78" r="4" fill="#FFFFFF"/>
+  <circle cx="78" cy="103" r="4" fill="#C4B5FD"/>
+  <circle cx="79" cy="126" r="4" fill="#60A5FA"/>
+  <circle cx="88" cy="150" r="4" fill="#FFFFFF"/>
+
+  <circle cx="149" cy="78" r="4" fill="#FFFFFF"/>
+  <circle cx="162" cy="103" r="4" fill="#C4B5FD"/>
+  <circle cx="161" cy="126" r="4" fill="#60A5FA"/>
+  <circle cx="152" cy="150" r="4" fill="#FFFFFF"/>
+
+  <!-- Central intelligence core -->
+  <circle
+    cx="120"
+    cy="118"
+    r="15"
+    fill="#0F1220"
+    fill-opacity="0.45"
+    stroke="#FFFFFF"
+    stroke-opacity="0.7"
+    stroke-width="2"
+  />
+
+  <circle
+    cx="120"
+    cy="118"
+    r="6"
+    fill="#FFFFFF"
+    filter="url(#smallGlow)"
+  />
+
+  <!-- Floating data nodes -->
+  <circle cx="36" cy="72" r="3" fill="#8B5CF6"/>
+  <circle cx="204" cy="84" r="3" fill="#60A5FA"/>
+  <circle cx="44" cy="166" r="3" fill="#22D3EE"/>
+  <circle cx="198" cy="160" r="3" fill="#A78BFA"/>
+
+  <!-- Connection lines -->
+  <path d="M39 72 L62 79" stroke="#8B5CF6" stroke-opacity="0.4"/>
+  <path d="M201 84 L177 91" stroke="#60A5FA" stroke-opacity="0.4"/>
+  <path d="M47 166 L72 153" stroke="#22D3EE" stroke-opacity="0.35"/>
+  <path d="M195 160 L171 151" stroke="#A78BFA" stroke-opacity="0.35"/>
+
+          </svg>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card glass">
+            <span class="stat-label">Total Score</span>
+            <span class="stat-value" id="statTotalScore">0</span>
+          </div>
+          <div class="stat-card glass">
+            <span class="stat-label">Best Score</span>
+            <span class="stat-value" id="statBestScore">0</span>
+          </div>
+        </div>
+
+        <h2 class="section-title">Choose a Challenge</h2>
+        <div class="challenge-grid">
+          <article class="challenge-card accent-purple" data-page="memory">
+            <div class="challenge-icon">🧠</div>
+            <h3>Memory</h3>
+            <p>Test your memory with visual patterns.</p>
+            <button class="btn-play">Play Now →</button>
+          </article>
+          <article class="challenge-card accent-blue" data-page="number">
+            <div class="challenge-icon">🔢</div>
+            <h3>Number</h3>
+            <p>Solve quick number puzzles.</p>
+            <button class="btn-play">Play Now →</button>
+          </article>
+          <article class="challenge-card accent-orange" data-page="reaction">
+            <div class="challenge-icon">⚡</div>
+            <h3>Reaction</h3>
+            <p>Tap at the right time. Test your speed.</p>
+            <button class="btn-play">Play Now →</button>
+          </article>
+          <article class="challenge-card accent-green" data-page="logic">
+            <div class="challenge-icon">🧩</div>
+            <h3>Logic</h3>
+            <p>Think, analyze, find the answer.</p>
+            <button class="btn-play">Play Now →</button>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============ MEMORY ============ -->
+      <section class="page" id="page-memory">
+        <h1>Memory Challenge</h1>
+        <p class="page-subtitle">Find all the matching pairs. Watch the cards, then remember!</p>
+
+        <div class="game-panel glass">
+          <div class="game-stats">
+            <div><span class="g-label">Moves</span><span class="g-value" id="memMoves">0</span></div>
+            <div><span class="g-label">Matches</span><span class="g-value" id="memMatches">0/6</span></div>
+            <div><span class="g-label">Score</span><span class="g-value" id="memScore">0</span></div>
+            <div><span class="g-label">Time</span><span class="g-value" id="memTime">00:00</span></div>
+          </div>
+          <div class="memory-grid" id="memoryGrid"></div>
+          <div class="game-actions">
+  <button class="btn-primary" id="memStartBtn">Start Game</button>
+  <button class="btn-secondary" id="memEndBtn">End Game</button>
+  <button class="btn-secondary" onclick="goToPage('dashboard')">← Back to Challenges</button>
+          </div>
+          <p class="game-result" id="memResult"></p>
+        
+        </div>
+      </section>
+
+      <!-- ============ NUMBER ============ -->
+      <section class="page" id="page-number">
+        <h1>Number Challenge</h1>
+        <p class="page-subtitle">Find the missing number in the pattern.</p>
+
+        <div class="game-panel glass">
+          <div class="game-stats">
+            <div><span class="g-label">Question</span><span class="g-value" id="numQCount">1 / 10</span></div>
+            <div><span class="g-label">Score</span><span class="g-value" id="numScore">0</span></div>
+            <div><span class="g-label">Streak</span><span class="g-value" id="numStreak">0</span></div>
+            <div><span class="g-label">Timer</span><span class="g-value" id="numTimer">00:00</span></div>
+          </div>
+          <div class="quiz-body" id="numQuizBody">
+            <p class="quiz-sequence" id="numSequence"></p>
+            <div class="options-grid" id="numOptions"></div>
+            <p class="quiz-feedback" id="numFeedback"></p>
+          </div>
+          <div class="game-actions">
+            <button class="btn-primary" id="numStartBtn">Start Challenge</button>
+            <button class="btn-secondary" id="numNextBtn" style="display:none;">Next Question</button>
+            <button class="btn-secondary" onclick="goToPage('dashboard')">← Back to Challenges</button>
+          </div>
+          <p class="game-result" id="numResult"></p>
+        </div>
+      </section>
+
+      <!-- ============ REACTION ============ -->
+      <section class="page" id="page-reaction">
+        <h1>Reaction Test</h1>
+        <p class="page-subtitle">Tap the screen when the color changes!</p>
+
+        <div class="game-panel glass">
+          <div class="game-stats">
+            <div><span class="g-label">Your Time</span><span class="g-value" id="reaTime">–</span></div>
+            <div><span class="g-label">Best Time</span><span class="g-value" id="reaBest">–</span></div>
+            <div><span class="g-label">Attempts</span><span class="g-value" id="reaAttempts">0</span></div>
+          </div>
+          <div class="reaction-area" id="reactionArea">
+            <div class="reaction-ring"></div>
+            <span class="reaction-label" id="reactionLabel">Press Start</span>
+          </div>
+          <div class="game-actions">
+            <button class="btn-primary" id="reaStartBtn">Start Test</button>
+            <button class="btn-secondary" onclick="goToPage('dashboard')">← Back to Challenges</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ LOGIC ============ -->
+      <section class="page" id="page-logic">
+        <h1>Logic Challenge</h1>
+        <p class="page-subtitle">Analyze the statement and choose the correct answer.</p>
+
+        <div class="game-panel glass">
+          <div class="game-stats">
+            <div><span class="g-label">Question</span><span class="g-value" id="logQCount">1 / 10</span></div>
+            <div><span class="g-label">Score</span><span class="g-value" id="logScore">0</span></div>
+          </div>
+          <div class="quiz-body" id="logQuizBody">
+            <p class="quiz-sequence" id="logStatement"></p>
+            <div class="options-grid vertical" id="logOptions"></div>
+            <p class="quiz-feedback" id="logFeedback"></p>
+          </div>
+          <div class="game-actions">
+            <button class="btn-primary" id="logStartBtn">Start Challenge</button>
+            <button class="btn-secondary" id="logNextBtn" style="display:none;">Next Question</button>
+            <button class="btn-secondary" onclick="goToPage('dashboard')">← Back to Challenges</button>
+          </div>
+          <p class="game-result" id="logResult"></p>
+        </div>
+      </section>
+
+      <!-- ============ PROGRESS ============ -->
+      <section class="page" id="page-progress">
+        <h1>Your Progress</h1>
+        <p class="page-subtitle">Track your performance and see your improvements.</p>
+
+        <div class="stats-row four">
+          <div class="stat-card glass"><span class="stat-label">Overall Score</span><span class="stat-value" id="progOverall">0%</span></div>
+          <div class="stat-card glass"><span class="stat-label">Games Played</span><span class="stat-value" id="progGames">0</span></div>
+          <div class="stat-card glass"><span class="stat-label">Best Score</span><span class="stat-value" id="progBest">0</span></div>
+          <div class="stat-card glass"><span class="stat-label">Total Time</span><span class="stat-value" id="progTime">0m</span></div>
+        </div>
+
+        <h2 class="section-title">Skill Performance</h2>
+        <div class="skill-grid">
+          <div class="skill-card glass">
+            <div class="skill-head"><span>Memory</span><span id="skillMemoryPct">0%</span></div>
+            <div class="progress-bar"><div class="progress-fill purple" id="skillMemoryBar"></div></div>
+          </div>
+          <div class="skill-card glass">
+            <div class="skill-head"><span>Number</span><span id="skillNumberPct">0%</span></div>
+            <div class="progress-bar"><div class="progress-fill blue" id="skillNumberBar"></div></div>
+          </div>
+          <div class="skill-card glass">
+            <div class="skill-head"><span>Reaction</span><span id="skillReactionPct">0%</span></div>
+            <div class="progress-bar"><div class="progress-fill orange" id="skillReactionBar"></div></div>
+          </div>
+          <div class="skill-card glass">
+            <div class="skill-head"><span>Logic</span><span id="skillLogicPct">0%</span></div>
+            <div class="progress-bar"><div class="progress-fill green" id="skillLogicBar"></div></div>
+          </div>
+        </div>
+
+        <h2 class="section-title">Performance Trend</h2>
+        <div class="trend-panel glass">
+          <div class="trend-chart" id="trendChart"></div>
+        </div>
+
+        <button class="btn-danger" id="resetProgressBtn">Reset Progress</button>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Confirm modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal glass">
+      <p id="modalText">Are you sure?</p>
+      <div class="modal-actions">
+        <button class="btn-secondary" id="modalCancel">Cancel</button>
+        <button class="btn-danger" id="modalConfirm">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/memory.js"></script>
+  <script src="js/number.js"></script>
+  <script src="js/reaction.js"></script>
+  <script src="js/logic.js"></script>
+  <script src="js/progress.js"></script>
+</body>
+</html>
