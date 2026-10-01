@@ -188,7 +188,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   document
     .getElementById("startPlayingBtn")
-    .addEventListener("click", () => goToPage("memory"));
+    .addEventListener("click", () => {
+  goToPage("dashboard");
+  document.querySelector(".challenge-grid").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+});
 
   // Hamburger / sidebar overlay
   document.getElementById("hamburger").addEventListener("click", openSidebar);
