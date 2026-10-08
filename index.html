@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BrainBox 2.0 — Advanced Brain Training Platform</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Shared BrainBox "B" monogram — brain lobes + circuit spark, reused in sidebar & mobile header -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <mask id="bbMonoMask" maskUnits="userSpaceOnUse" x="0" y="0" width="40" height="40">
+        <rect x="0" y="0" width="40" height="40" fill="white"/>
+        <ellipse cx="22" cy="13.5" rx="4" ry="3.3" fill="black"/>
+        <ellipse cx="23" cy="25.5" rx="4.8" ry="4" fill="black"/>
+      </mask>
+      <symbol id="bbMonogram" viewBox="0 0 40 40">
+        <g mask="url(#bbMonoMask)" fill="currentColor">
+          <path d="M15 7 L12.5 7 A2.5 2.5 0 0 0 10 9.5 L10 30.5 A2.5 2.5 0 0 0 12.5 33 L15 33 Z"/>
+          <ellipse cx="21" cy="13.5" rx="8.5" ry="6.5"/>
+          <ellipse cx="22" cy="25.5" rx="9.5" ry="7.5"/>
+        </g>
+        <circle cx="30" cy="13" r="1.4" fill="#22d3ee"/>
+        <line x1="27" y1="13" x2="30" y2="13" stroke="#22d3ee" stroke-width="1"/>
+        <circle cx="12.5" cy="6" r="1.6" fill="#22d3ee"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <div class="brand">
+        <span class="logo-badge" aria-hidden="true">
+          <svg class="logo-mark" viewBox="0 0 40 40"><use href="#bbMonogram"></use></svg>
+        </span>
+        <div class="brand-text">
+          <div class="brand-name-row">
+            <span class="brand-name">BrainBox</span>
+            <span class="brand-version">2.0</span>
+          </div>
+          <span class="brand-subtitle">Brain Training Platform</span>
+        </div>
+      </div>
+      <p class="brand-tagline">Train your mind. Challenge yourself.</p>
+    </div>
+
+    <nav class="nav" id="nav">
+      <button class="nav-item active" data-page="dashboard">
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V9.5"/></svg></span>
+        Home
+      </button>
+      <button class="nav-item" data-page="memory">
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4.5C6.5 4.5 5 6.3 5 8.3c0 .9.3 1.5.3 1.5s-1.3.7-1.3 2.3c0 1.8 1.4 3.2 3.2 3.2"/><path d="M15 4.5c2.5 0 4 1.8 4 3.8 0 .9-.3 1.5-.3 1.5s1.3.7 1.3 2.3c0 1.8-1.4 3.2-3.2 3.2"/><path d="M9 4.5c1 0 1.8.3 2.4.8M15 4.5c-1 0-1.8.3-2.4.8M12 5.3V19M7.2 15.3c0 2 1.6 3.7 3.6 3.7M16.8 15.3c0 2-1.6 3.7-3.6 3.7"/></svg></span>
+        Memory
+      </button>
+      <button class="nav-item" data-page="number">
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h5M4 12h5M4 18h5"/><path d="M15 8V6.2c0-.7.6-1.2 1.3-1.2.7 0 1.3.5 1.3 1.2 0 .5-.2.9-.6 1.2L15 9.5h2.6M15 18h2.6c.7 0 1.3-.5 1.3-1.2v-.3c0-.6-.5-1-1-1.1.5-.1 1-.5 1-1.1v-.3c0-.7-.6-1.2-1.3-1.2H15"/></svg></span>
+        Number
+      </button>
+      <button class="nav-item" data-page="reaction">
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg></span>
+        Reaction
+      </button>
+      <button class="nav-item" data-page="logic">
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h4a1 1 0 0 1 1 1v2.2a1.8 1.8 0 1 0 0 3.6V13a1 1 0 0 1-1 1h-2.2a1.8 1.8 0 1 0-3.6 0H5a1 1 0 0 1-1-1V9a1.8 1.8 0 1 0 0-3.6V5a1 1 0 0 1 1-1h2.2a1.8 1.8 0 1 1 3.6 0"/><path d="M13 14h2a1 1 0 0 1 1 1v2.2a1.8 1.8 0 1 1 0 3.6V21a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.2a1.8 1.8 0 1 0 0-3.6"/></svg></span>
+        Logic
+      </button>
+      <button class="nav-item" data-page="progress">
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+        Progress
+      </button>
+      <button class="nav-item" data-page="achievements">
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0V4Z"/><path d="M8 5H5a2 2 0 0 0 0 4h1M16 5h3a2 2 0 0 1 0 4h-1"/><path d="M12 13v3m-3 4h6m-3 0v-4"/></svg></span>
+        Achievements
+      </button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="motivation-card">
+        <strong>Small steps</strong>
+        <span>build big brains!</span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ===================== MAIN ===================== -->
+  <div class="main">
+    <header class="topbar">
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <span class="logo-badge logo-badge-sm mobile-only" aria-hidden="true">
+        <svg class="logo-mark" viewBox="0 0 40 40"><use href="#bbMonogram"></use></svg>
+      </span>
+      <div class="search">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search challenges..." aria-label="Search challenges" />
+      </div>
+      <div class="topbar-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+        <button class="icon-btn" id="notifBtn" aria-label="Notifications">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span class="icon-dot" id="notifDot"></span>
+        </button>
+        <div class="xp-pill" aria-hidden="true">
+          <span class="xp-pill-label">XP</span>
+          <span class="xp-pill-level" id="headerLevelText">0 / 1000</span>
+          <span class="xp-pill-bar"><span class="xp-pill-fill" id="headerXpFill" style="width:0%"></span></span>
+        </div>
+        <div class="user-chip">
+          <span class="avatar-ring">
+            <span class="avatar">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+            </span>
+          </span>
+          <div class="user-meta">
+            <span class="user-name">Player</span>
+            <span class="user-level" id="userLevelTag">Level 1</span>
+            <span class="user-chip-bar"><span class="user-chip-fill" id="chipXpFill" style="width:0%"></span></span>
+          </div>
+          <span class="chevron">▾</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="content" id="content">
+
+      <!-- ============ DASHBOARD ============ -->
+      <section class="page active" id="page-dashboard">
+        <div class="hero glass">
+          <div class="hero-text">
+            <span class="hero-eyebrow">WELCOME TO</span>
+            <div class="hero-title-row">
+              <h1>BrainBox</h1>
+              <span class="brand-version hero-version">2.0</span>
+            </div>
+            <p>Train your memory, boost your focus, think faster and solve smarter with fun and challenging games.</p>
+            <button class="btn-primary" id="startPlayingBtn">Start Playing →</button>
+          </div>
+
+          <div class="hero-brain-wrap">
+            <svg class="hero-art" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="100" cy="100" r="96" fill="url(#heroGlow)" opacity="0.45"/>
+              <ellipse cx="100" cy="100" rx="88" ry="60" stroke="url(#heroRing)" stroke-width="1" opacity="0.4"/>
+              <ellipse cx="100" cy="100" rx="60" ry="88" stroke="url(#heroRing)" stroke-width="1" opacity="0.25"/>
+              <circle cx="100" cy="12" r="3" fill="#22d3ee" opacity="0.9"/>
+              <circle cx="188" cy="100" r="2.6" fill="#a78bfa" opacity="0.8"/>
+              <circle cx="12" cy="100" r="2.2" fill="#60a5fa" opacity="0.7"/>
+              <circle cx="100" cy="188" r="2.6" fill="#c4b5fd" opacity="0.7"/>
+              <path d="M100 48c-24 0-39 14.4-39 31.4 0 7 2.6 11.8 2.6 11.8s-9.1 4.3-9.1 15.6c0 12.6 10.2 22.9 22.9 22.9h45.2c12.6 0 22.9-10.3 22.9-22.9 0-11.3-9.1-15.6-9.1-15.6s2.6-4.8 2.6-11.8c0-17-15-31.4-39-31.4Z" fill="url(#heroBrainFill)" opacity="0.9"/>
+              <path d="M100 48c-24 0-39 14.4-39 31.4 0 7 2.6 11.8 2.6 11.8s-9.1 4.3-9.1 15.6c0 12.6 10.2 22.9 22.9 22.9h45.2c12.6 0 22.9-10.3 22.9-22.9 0-11.3-9.1-15.6-9.1-15.6s2.6-4.8 2.6-11.8c0-17-15-31.4-39-31.4Z" stroke="url(#heroRing)" stroke-width="1" opacity="0.6"/>
+              <g stroke="#a5b4fc" stroke-width="0.8" opacity="0.55">
+                <line x1="72" y1="78" x2="92" y2="90"/>
+                <line x1="128" y1="78" x2="108" y2="90"/>
+                <line x1="92" y1="90" x2="100" y2="112"/>
+                <line x1="108" y1="90" x2="100" y2="112"/>
+                <line x1="72" y1="78" x2="68" y2="104"/>
+                <line x1="128" y1="78" x2="132" y2="104"/>
+                <line x1="68" y1="104" x2="100" y2="112"/>
+                <line x1="132" y1="104" x2="100" y2="112"/>
+                <line x1="100" y1="112" x2="100" y2="128"/>
+              </g>
+              <g fill="#e0e7ff">
+                <circle cx="72" cy="78" r="2.4"/>
+                <circle cx="128" cy="78" r="2.4"/>
+                <circle cx="92" cy="90" r="2"/>
+                <circle cx="108" cy="90" r="2"/>
+                <circle cx="68" cy="104" r="2.2"/>
+                <circle cx="132" cy="104" r="2.2"/>
+                <circle cx="100" cy="112" r="3"/>
+                <circle cx="100" cy="128" r="2.4"/>
+              </g>
+              <g fill="#22d3ee">
+                <circle cx="72" cy="78" r="1.1"><animate attributeName="opacity" values="1;0.2;1" dur="2.4s" repeatCount="indefinite"/></circle>
+                <circle cx="108" cy="90" r="1.1"><animate attributeName="opacity" values="0.2;1;0.2" dur="2.1s" repeatCount="indefinite"/></circle>
+                <circle cx="68" cy="104" r="1.1"><animate attributeName="opacity" values="1;0.3;1" dur="2.8s" repeatCount="indefinite"/></circle>
+                <circle cx="100" cy="128" r="1.1"><animate attributeName="opacity" values="0.3;1;0.3" dur="2.3s" repeatCount="indefinite"/></circle>
+              </g>
+              <defs>
+                <radialGradient id="heroGlow" cx="0" cy="0" r="1" gradientTransform="translate(100 100) scale(96)">
+                  <stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#8b5cf6" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="heroRing" x1="12" y1="12" x2="188" y2="188" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#22d3ee"/>
+                </linearGradient>
+                <linearGradient id="heroBrainFill" x1="61" y1="48" x2="139" y2="131" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#4c3fd6" stop-opacity="0.55"/><stop offset="1" stop-color="#1b1348" stop-opacity="0.55"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-card glass">
+              <span class="stat-icon">🏆</span>
+              <span class="stat-label">Total Score</span>
+              <span class="stat-value" id="statTotalScore">0</span>
+            </div>
+            <div class="stat-card glass">
+              <span class="stat-icon">⭐</span>
+              <span class="stat-label">Best Score</span>
+              <span class="stat-value" id="statBestScore">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- XP / Level / Streak -->
+        <div class="xp-streak-row">
+          <div class="xp-card glass">
+            <div class="xp-head">
+              <span class="xp-level" id="xpLevelLabel">LEVEL 01</span>
+              <span class="xp-fraction" id="xpFraction">0 / 1000 XP</span>
+            </div>
+            <div class="progress-bar xp-bar"><div class="progress-fill purple" id="xpBarFill" style="width:0%"></div></div>
+          </div>
+          <div class="streak-card glass">
+            <span class="streak-flame">🔥</span>
+            <span class="streak-text" id="streakValue">0 Day Streak</span>
+          </div>
+        </div>
+
+        <!-- Today's Challenge -->
+        <h2 class="section-title">Today's Challenge</h2>
+        <div class="daily-card glass">
+          <div class="daily-info">
+            <span class="daily-tag">TODAY'S CHALLENGE</span>
+            <h3 id="dailyGameName">—</h3>
+            <p id="dailyGameDesc">—</p>
+          </div>
+          <button class="btn-primary" id="dailyStartBtn">Start Challenge</button>
+        </div>
+
+        <!-- Challenge Hub -->
+        <div class="hub-header">
+          <div class="hub-header-left">
+            <span class="hub-header-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            </span>
+            <h2 class="section-title hub-title">Choose Your Challenge</h2>
+          </div>
+          <span class="hub-header-subtitle">Train different skills. Build a stronger you.</span>
+        </div>
+        <div class="challenge-grid" id="challengeHub"></div>
+
+        <!-- Decorative skill highlights -->
+        <div class="perks-strip">
+          <span class="perk"><span class="perk-icon">🧠</span> Better Memory</span>
+          <span class="perk-divider"></span>
+          <span class="perk"><span class="perk-icon">🎯</span> Sharper Focus</span>
+          <span class="perk-divider"></span>
+          <span class="perk"><span class="perk-icon">⚡</span> Faster Thinking</span>
+          <span class="perk-divider"></span>
+          <span class="perk"><span class="perk-icon">📈</span> Higher Progress</span>
+          <span class="perk-divider"></span>
+          <span class="perk"><span class="perk-icon">⭐</span> Smarter You</span>
+        </div>
+
+        <footer class="app-footer">
+          <span class="app-footer-line"></span>
+          <span class="app-footer-text">BRAINBOX 2.0 &nbsp;·&nbsp; Train Your Mind. Challenge Yourself.</span>
+          <span class="app-footer-line"></span>
+        </footer>
+      </section>
+
+      <!-- ============ MEMORY ============ -->
+      <section class="page" id="page-memory">
+        <button class="btn-secondary back-to-hub">← Back to Challenges</button>
+        <h1>Memory Challenge</h1>
+        <p class="page-subtitle">Find all the matching pairs. Watch the cards, then remember!</p>
+
+        <div class="game-panel glass">
+          <div class="game-stats">
+            <div><span class="g-label">Moves</span><span class="g-value" id="memMoves">0</span></div>
+            <div><span class="g-label">Matches</span><span class="g-value" id="memMatches">0/6</span></div>
+            <div><span class="g-label">Score</span><span class="g-value" id="memScore">0</span></div>
+            <div><span class="g-label">Time</span><span class="g-value" id="memTime">00:00</span></div>
+          </div>
+          <div class="memory-grid" id="memoryGrid"></div>
+          <div class="game-actions">
+            <button class="btn-primary" id="memStartBtn">Start Game</button>
+            <button class="btn-secondary" id="memEndBtn">End Game</button>
+          </div>
+          <p class="game-result" id="memResult"></p>
+        </div>
+      </section>
+
+      <!-- ============ NUMBER ============ -->
+      <section class="page" id="page-number">
+        <button class="btn-secondary back-to-hub">← Back to Challenges</button>
+        <h1>Number Challenge</h1>
+        <p class="page-subtitle">Find the missing number in the pattern.</p>
+
+        <div class="diff-row">
+          <button class="diff-btn" data-diff="easy">Easy</button>
+          <button class="diff-btn" data-diff="medium">Medium</button>
+          <button class="diff-btn" data-diff="hard">Hard</button>
+        </div>
+
+        <div class="game-panel glass">
+          <div class="game-stats">
+            <div><span class="g-label">Question</span><span class="g-value" id="numQCount">1 / 10</span></div>
+            <div><span class="g-label">Score</span><span class="g-value" id="numScore">0</span></div>
+            <div><span class="g-label">Streak</span><span class="g-value" id="numStreak">0</span></div>
+            <div><span class="g-label">Timer</span><span class="g-value" id="numTimer">00:00</span></div>
+          </div>
+          <div class="quiz-body" id="numQuizBody">
+            <p class="quiz-sequence" id="numSequence"></p>
+            <div class="options-grid" id="numOptions"></div>
+            <p class="quiz-feedback" id="numFeedback"></p>
+          </div>
+          <div class="game-actions">
+            <button class="btn-primary" id="numStartBtn">Start Challenge</button>
+            <button class="btn-secondary" id="numNextBtn" style="display:none;">Next Question</button>
+          </div>
+          <p class="game-result" id="numResult"></p>
+        </div>
+      </section>
+
+      <!-- ============ REACTION ============ -->
+      <section class="page" id="page-reaction">
+        <button class="btn-secondary back-to-hub">← Back to Challenges</button>
+        <h1>Reaction Test</h1>
+        <p class="page-subtitle">Tap the screen when the color changes!</p>
+
+        <div class="game-panel glass">
+          <div class="game-stats">
+            <div><span class="g-label">Your Time</span><span class="g-value" id="reaTime">–</span></div>
+            <div><span class="g-label">Best Time</span><span class="g-value" id="reaBest">–</span></div>
+            <div><span class="g-label">Attempts</span><span class="g-value" id="reaAttempts">0</span></div>
+          </div>
+          <div class="reaction-area" id="reactionArea">
+            <div class="reaction-ring"></div>
+            <span class="reaction-label" id="reactionLabel">Press Start</span>
+          </div>
+          <div class="game-actions">
+            <button class="btn-primary" id="reaStartBtn">Start Test</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ LOGIC ============ -->
+      <section class="page" id="page-logic">
+        <button class="btn-secondary back-to-hub">← Back to Challenges</button>
+        <h1>Logic Challenge</h1>
+        <p class="page-subtitle">Analyze the statement and choose the correct answer.</p>
+
+        <div class="game-panel glass">
+          <div class="game-stats">
+            <div><span class="g-label">Question</span><span class="g-value" id="logQCount">1 / 10</span></div>
+            <div><span class="g-label">Score</span><span class="g-value" id="logScore">0</span></div>
+          </div>
+          <div class="quiz-body" id="logQuizBody">
+            <p class="quiz-sequence" id="logStatement"></p>
+            <div class="options-grid vertical" id="logOptions"></div>
+            <p class="quiz-feedback" id="logFeedback"></p>
+          </div>
+          <div class="game-actions">
+            <button class="btn-primary" id="logStartBtn">Start Challenge</button>
+            <button class="btn-secondary" id="logNextBtn" style="display:none;">Next Question</button>
+          </div>
+      <p class="game-result" id="logResult"></p>
+        </div>
+      </section>
+
+      <!-- ============ PATTERN RECOGNITION ============ -->
+      <section class="page" id="page-pattern">
+        <button class="btn-secondary back-to-hub">← Back to Challenges</button>
+        <h1>Pattern Recognition</h1>
+        <p class="page-subtitle">Spot the rule, choose what comes next.</p>
+
+        <div class="diff-row">
+          <button class="diff-btn" data-diff="easy">Easy</button>
+          <button class="diff-btn" data-diff="medium">Medium</button>
+          <button class="diff-btn" data-diff="hard">Hard</button>
+        </div>
+
+        <div class="game-panel glass">
+          <div class="game-stats">
+            <div><span class="g-label">Question</span><span class="g-value" id="patQCount">1 / 10</span></div>
+            <div><span class="g-label">Score</span><span class="g-value" id="patScore">0</span></div>
+            <div><span class="g-label">Timer</span><span class="g-value" id="patTimer">00:00</span></div>
+          </div>
+          <div class="quiz-body" id="patQuizBody">
+            <p class="quiz-sequence" id="patSequence"></p>
+            <div class="options-grid" id="patOptions"></div>
+            <p class="quiz-feedback" id="patFeedback"></p>
+          </div>
+          <div class="game-actions">
+            <button class="btn-primary" id="patStartBtn">Start Challenge</button>
+            <button class="btn-secondary" id="patNextBtn" style="display:none;">Next Question</button>
+          </div>
+          <p class="game-result" id="patResult"></p>
+        </div>
+      </section>
+
+      <!-- ============ QUICK MATH ============ -->
+      <section class="page" id="page-quickmath">
+        <button class="btn-secondary back-to-hub">← Back to Challenges</button>
+        <h1>Quick Math</h1>
+        <p class="page-subtitle">Solve arithmetic before the clock runs out.</p>
+
+        <div class="diff-row">
+          <button class="diff-btn" data-diff="easy">Easy</button>
+          <button class="diff-btn" data-diff="medium">Medium</button>
+          <button class="diff-btn" data-diff="hard">Hard</button>
+        </div>
+
+        <div class="game-panel glass">
+          <div class="game-stats">
+            <div><span class="g-label">Question</span><span class="g-value" id="qmQCount">1 / 10</span></div>
+            <div><span class="g-label">Score</span><span class="g-value" id="qmScore">0</span></div>
+            <div><span class="g-label">Streak</span><span class="g-value" id="qmStreak">0</span></div>
+            <div><span class="g-label">Timer</span><span class="g-value" id="qmTimer">00:00</span></div>
+          </div>
+          <div class="quiz-body" id="qmQuizBody">
+            <p class="quiz-sequence" id="qmQuestion"></p>
+            <div class="options-grid" id="qmOptions"></div>
+            <p class="quiz-feedback" id="qmFeedback"></p>
+          </div>
+          <div class="game-actions">
+            <button class="btn-primary" id="qmStartBtn">Start Challenge</button>
+            <button class="btn-secondary" id="qmNextBtn" style="display:none;">Next Question</button>
+          </div>
+          <p class="game-result" id="qmResult"></p>
+        </div>
+      </section>
+
+      <!-- ============ WORD MEMORY ============ -->
+      <section class="page" id="page-wordmemory">
+        <button class="btn-secondary back-to-hub">← Back to Challenges</button>
+        <h1>Word Memory</h1>
+        <p class="page-subtitle">Memorize the words, then recall them.</p>
+
+        <div class="diff-row">
+          <button class="diff-btn" data-diff="easy">Easy</button>
+          <button class="diff-btn" data-diff="medium">Medium</button>
+          <button class="diff-btn" data-diff="hard">Hard</button>
+        </div>
+
+        <div class="game-panel glass">
+          <div class="game-stats">
+            <div><span class="g-label">Score</span><span class="g-value" id="wmScore">0</span></div>
+            <div><span class="g-label">Accuracy</span><span class="g-value" id="wmAccuracy">0%</span></div>
+            <div><span class="g-label">Phase Timer</span><span class="g-value" id="wmPhaseTimer"></span></div>
+          </div>
+          <p class="quiz-feedback" id="wmStatus">Press Start to begin</p>
+          <div class="word-grid" id="wmWordGrid"></div>
+          <div class="game-actions">
+            <button class="btn-primary" id="wmStartBtn">Start Challenge</button>
+            <button class="btn-secondary" id="wmSubmitBtn" style="display:none;">Submit Answer</button>
+          </div>
+          <p class="game-result" id="wmResult"></p>
+        </div>
+      </section>
+
+      <!-- ============ ODD ONE OUT ============ -->
+      <section class="page" id="page-oddoneout">
+        <button class="btn-secondary back-to-hub">← Back to Challenges</button>
+        <h1>Odd One Out</h1>
+        <p class="page-subtitle">Spot the item that doesn't belong.</p>
+<div class="diff-row">
+          <button class="diff-btn" data-diff="easy">Easy</button>
+          <button class="diff-btn" data-diff="medium">Medium</button>
+          <button class="diff-btn" data-diff="hard">Hard</button>
+        </div>
+
+        <div class="game-panel glass">
+          <div class="game-stats">
+            <div><span class="g-label">Round</span><span class="g-value" id="oooRound">1 / 8</span></div>
+            <div><span class="g-label">Score</span><span class="g-value" id="oooScore">0</span></div>
+            <div><span class="g-label">Timer</span><span class="g-value" id="oooTimer">00:00</span></div>
+          </div>
+          <div id="oooGameBody">
+            <div class="ooo-grid" id="oooGrid"></div>
+            <p class="quiz-feedback" id="oooFeedback"></p>
+          </div>
+          <div class="game-actions">
+            <button class="btn-primary" id="oooStartBtn">Start Challenge</button>
+            <button class="btn-secondary" id="oooNextBtn" style="display:none;">Next Round</button>
+          </div>
+          <p class="game-result" id="oooResult"></p>
+        </div>
+      </section>
+
+      <!-- ============ SEQUENCE MASTER ============ -->
+      <section class="page" id="page-sequence">
+        <button class="btn-secondary back-to-hub">← Back to Challenges</button>
+        <h1>Sequence Master</h1>
+        <p class="page-subtitle">Crack advanced number and logical sequences.</p>
+
+        <div class="diff-row">
+          <button class="diff-btn" data-diff="easy">Easy</button>
+          <button class="diff-btn" data-diff="medium">Medium</button>
+          <button class="diff-btn" data-diff="hard">Hard</button>
+        </div>
+
+        <div class="game-panel glass">
+          <div class="game-stats">
+            <div><span class="g-label">Question</span><span class="g-value" id="seqQCount">1 / 10</span></div>
+            <div><span class="g-label">Score</span><span class="g-value" id="seqScore">0</span></div>
+            <div><span class="g-label">Timer</span><span class="g-value" id="seqTimer">00:00</span></div>
+          </div>
+          <div class="quiz-body" id="seqQuizBody">
+            <p class="quiz-sequence" id="seqSequence"></p>
+            <div class="options-grid" id="seqOptions"></div>
+            <p class="quiz-feedback" id="seqFeedback"></p>
+          </div>
+          <div class="game-actions">
+            <button class="btn-primary" id="seqStartBtn">Start Challenge</button>
+            <button class="btn-secondary" id="seqNextBtn" style="display:none;">Next Question</button>
+          </div>
+          <p class="game-result" id="seqResult"></p>
+        </div>
+      </section>
+
+      <!-- ============ COLOR FOCUS ============ -->
+      <section class="page" id="page-colorfocus">
+        <button class="btn-secondary back-to-hub">← Back to Challenges</button>
+        <h1>Color Focus</h1>
+        <p class="page-subtitle">Name the ink color, not the word.</p>
+
+        <div class="diff-row">
+          <button class="diff-btn" data-diff="easy">Easy</button>
+          <button class="diff-btn" data-diff="medium">Medium</button>
+          <button class="diff-btn" data-diff="hard">Hard</button>
+        </div>
+
+        <div class="game-panel glass">
+          <div class="game-stats">
+            <div><span class="g-label">Round</span><span class="g-value" id="cfRound">1 / 8</span></div>
+            <div><span class="g-label">Score</span><span class="g-value" id="cfScore">0</span></div>
+            <div><span class="g-label">Streak</span><span class="g-value" id="cfStreak">0</span></div>
+            <div><span class="g-label">Time Left</span><span class="g-value" id="cfTimer">0.0</span></div>
+          </div>
+          <div id="cfGameBody">
+            <p class="cf-word" id="cfWordDisplay"></p>
+            <div class="options-grid" id="cfOptions"></div>
+            <p class="quiz-feedback" id="cfFeedback"></p>
+          </div>
+          <div class="game-actions">
+            <button class="btn-primary" id="cfStartBtn">Start Challenge</button>
+</div>
+          <p class="game-result" id="cfResult"></p>
+        </div>
+      </section>
+
+      <!-- ============ PROGRESS ============ -->
+      <section class="page" id="page-progress">
+        <h1>Your Progress</h1>
+        <p class="page-subtitle">Track your performance and see your improvements.</p>
+
+        <div class="stats-row four">
+          <div class="stat-card glass"><span class="stat-label">Total XP</span><span class="stat-value" id="progXP">0</span></div>
+          <div class="stat-card glass"><span class="stat-label">Current Level</span><span class="stat-value" id="progLevel">1</span></div>
+          <div class="stat-card glass"><span class="stat-label">Current Streak</span><span class="stat-value" id="progStreak">0</span></div>
+          <div class="stat-card glass"><span class="stat-label">Overall Score</span><span class="stat-value" id="progOverall">0%</span></div>
+        </div>
+        <div class="stats-row">
+          <div class="stat-card glass"><span class="stat-label">Games Played</span><span class="stat-value" id="progGames">0</span></div>
+          <div class="stat-card glass"><span class="stat-label">Best Score</span><span class="stat-value" id="progBest">0</span></div>
+        </div>
+        <div class="stats-row">
+          <div class="stat-card glass"><span class="stat-label">Total Time</span><span class="stat-value" id="progTime">0m</span></div>
+        </div>
+
+        <h2 class="section-title">Skill Performance</h2>
+        <div class="skill-grid" id="skillGrid"></div>
+
+        <h2 class="section-title">Brain Profile</h2>
+        <div class="skill-grid" id="brainProfileGrid"></div>
+
+        <h2 class="section-title">Performance Trend</h2>
+        <div class="trend-panel glass">
+          <div class="trend-chart" id="trendChart"></div>
+        </div>
+<button class="btn-danger" id="resetProgressBtn">Reset Progress</button>
+      </section>
+
+      <!-- ============ ACHIEVEMENTS ============ -->
+      <section class="page" id="page-achievements">
+        <h1>Achievements</h1>
+        <p class="page-subtitle">Unlock achievements by playing and improving.</p>
+        <div class="achievements-grid" id="achievementsGrid"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Confirm modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal glass">
+      <p id="modalText">Are you sure?</p>
+      <div class="modal-actions">
+        <button class="btn-secondary" id="modalCancel">Cancel</button>
+        <button class="btn-danger" id="modalConfirm">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Level Up modal -->
+  <div class="modal-overlay" id="levelUpOverlay">
+    <div class="modal glass level-up-modal">
+      <div class="level-up-badge">⭐</div>
+      <h2>LEVEL UP!</h2>
+      <p id="levelUpText">You reached Level 02</p>
+      <div class="modal-actions">
+        <button class="btn-primary" id="levelUpClose">Nice!</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/memory.js"></script>
+  <script src="js/number.js"></script>
+  <script src="js/reaction.js"></script>
+  <script src="js/logic.js"></script>
+  <script src="js/pattern.js"></script>
+  <script src="js/quickmath.js"></script>
+  <script src="js/wordmemory.js"></script>
+  <script src="js/oddoneout.js"></script>
+  <script src="js/sequence.js"></script>
+  <script src="js/colorfocus.js"></script>
+  <script src="js/progress.js"></script>
+</body>
+</html>
